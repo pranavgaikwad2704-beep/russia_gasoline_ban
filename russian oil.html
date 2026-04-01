@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Russia Bans Gasoline Exports</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0d0c0a;
+    --paper: #f5f0e8;
+    --accent: #c8320a;
+    --accent2: #1a3a5c;
+    --muted: #7a7060;
+    --border: #c5b99a;
+    --highlight: #fde68a;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    min-height: 100vh;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  /* ANIMATED TICKER */
+  .ticker-wrap {
+    background: var(--accent);
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 7px 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    border-bottom: 2px solid var(--ink);
+  }
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 28s linear infinite;
+  }
+  .ticker-inner span { margin: 0 3rem; }
+  @keyframes ticker {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    border-bottom: 3px double var(--ink);
+    padding: 18px 32px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .masthead-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    line-height: 1.7;
+  }
+  .masthead-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-align: center;
+    flex: 1;
+  }
+  .masthead-logo span {
+    color: var(--accent);
+  }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 0;
+    border-bottom: 2px solid var(--ink);
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 32px 0;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.2s ease forwards;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-main { padding-right: 32px; border-right: 1.5px solid var(--border); }
+
+  .label {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    margin-bottom: 14px;
+  }
+
+  h1.headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+  h1.headline em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .deck {
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: #3a3228;
+    margin-bottom: 20px;
+    border-left: 3px solid var(--accent);
+    padding-left: 14px;
+  }
+
+  .byline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+    margin-bottom: 28px;
+  }
+
+  /* SIDEBAR FACTS */
+  .hero-sidebar {
+    padding-left: 28px;
+    padding-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .fact-box {
+    border: 1.5px solid var(--ink);
+    padding: 14px 16px;
+    position: relative;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+  }
+  .fact-box:nth-child(1) { animation-delay: 0.5s; }
+  .fact-box:nth-child(2) { animation-delay: 0.7s; }
+  .fact-box:nth-child(3) { animation-delay: 0.9s; }
+
+  .fact-box .fact-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .fact-box .fact-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .fact-box .fact-desc {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .fact-box::before {
+    content: '';
+    position: absolute;
+    top: -4px; left: -4px;
+    width: 8px; height: 8px;
+    background: var(--accent);
+  }
+
+  /* BODY */
+  .body-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0 28px;
+    border-bottom: 2px solid var(--ink);
+    opacity: 0;
+    animation: fadeUp 0.9s 0.6s ease forwards;
+  }
+
+  .col { font-size: 0.88rem; line-height: 1.75; color: #2a2418; }
+  .col p { margin-bottom: 14px; }
+  .col p:first-child::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.8rem;
+    font-weight: 900;
+    float: left;
+    line-height: 0.78;
+    margin-right: 6px;
+    margin-top: 6px;
+    color: var(--accent);
+  }
+  .col + .col { border-left: 1px solid var(--border); padding-left: 28px; }
+
+  .pull-quote {
+    grid-column: 1 / -1;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    font-style: italic;
+    font-weight: 700;
+    text-align: center;
+    padding: 22px 48px;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    margin: 8px 0 20px;
+    color: var(--accent2);
+    position: relative;
+    line-height: 1.35;
+    background: linear-gradient(135deg, #f0ebe0 0%, var(--paper) 100%);
+  }
+  .pull-quote::before, .pull-quote::after {
+    font-size: 4rem;
+    color: var(--accent);
+    opacity: 0.25;
+    position: absolute;
+    font-style: normal;
+    line-height: 1;
+  }
+  .pull-quote::before { content: '"'; top: 4px; left: 16px; }
+  .pull-quote::after  { content: '"'; bottom: -10px; right: 16px; }
+
+  /* IMPACT SECTION */
+  .impact-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 28px 32px 32px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.85s ease forwards;
+  }
+  .impact-wrap h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 8px;
+  }
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .impact-card {
+    border: 1.5px solid var(--border);
+    padding: 16px;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .impact-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .impact-card.india {
+    border-color: var(--accent2);
+    background: #eef4fb;
+  }
+  .impact-card .flag { font-size: 1.5rem; margin-bottom: 6px; }
+  .impact-card .country {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .impact-card .status {
+    font-size: 0.78rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .impact-card .badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    padding: 2px 7px;
+    margin-top: 8px;
+    text-transform: uppercase;
+  }
+  .badge.high   { background: var(--accent); color: #fff; }
+  .badge.medium { background: #e0a020; color: #fff; }
+  .badge.low    { background: #2a7a4a; color: #fff; }
+
+  /* TIMELINE */
+  .timeline-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 32px 36px;
+    opacity: 0;
+    animation: fadeUp 0.9s 1s ease forwards;
+  }
+  .timeline-wrap h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 8px;
+  }
+  .timeline {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--ink);
+  }
+  .tl-item {
+    flex: 1;
+    padding-top: 38px;
+    position: relative;
+    padding-right: 12px;
+  }
+  .tl-dot {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2.5px solid var(--ink);
+  }
+  .tl-dot.active { background: var(--accent); border-color: var(--accent); }
+  .tl-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .tl-text { font-size: 0.76rem; line-height: 1.5; color: #3a3228; }
+
+  /* FOOTER */
+  .researcher-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 5px 0;
+    border-top: 1px solid var(--border);
+  }
+  .researcher-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .researcher-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .insta-badge {
+    margin-top: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+  }
+  .insta-badge a {
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .insta-badge a:hover { color: var(--accent); border-color: var(--accent); }
+
+footer {
+    background: var(--ink);
+    color: #a09880;
+    text-align: center;
+    padding: 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+  }
+  footer span { color: var(--accent); }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-main { border-right: none; padding-right: 0; border-bottom: 1.5px solid var(--border); padding-bottom: 24px; }
+    .hero-sidebar { padding-left: 0; padding-top: 20px; flex-direction: row; flex-wrap: wrap; }
+    .fact-box { flex: 1 1 140px; }
+    .body-wrap { grid-template-columns: 1fr; }
+    .col + .col { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 14px; }
+    .impact-grid { grid-template-columns: 1fr 1fr; }
+    .masthead { flex-direction: column; text-align: center; }
+    .timeline { flex-direction: column; gap: 16px; }
+    .timeline::before { display: none; }
+    .tl-item { padding-top: 0; padding-left: 20px; }
+    .tl-dot { top: 2px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span>⚡ BREAKING: Russia bans gasoline exports from April 1 – July 31, 2026</span>
+    <span>🛢️ Russia exports ~120,000–170,000 barrels of petrol daily</span>
+    <span>🇮🇳 India: Minimal direct impact — imports crude, not refined petrol</span>
+    <span>🌍 Countries most at risk: China, Turkey, Brazil, Egypt, Singapore</span>
+    <span>⚡ BREAKING: Russia bans gasoline exports from April 1 – July 31, 2026</span>
+    <span>🛢️ Ukraine drone strikes damaged ~10% of Russia's refining capacity</span>
+  </div>
+</div>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-meta">APRIL 1, 2026<br/>GLOBAL ENERGY</div>
+  <div class="masthead-logo">GLOBAL<span>FUEL</span> REPORT</div>
+  <div class="masthead-meta">ISSUE #2026-04<br/>WORLD EDITION</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-main">
+    <div class="label">⚡ Breaking News</div>
+    <h1 class="headline">Russia <em>Halts</em> All Gasoline Exports Until July 31</h1>
+    <p class="deck">Moscow imposes a four-month gasoline export freeze amid Middle East conflict, drone strikes on refineries, and surging domestic demand — here's what it means for India and the world.</p>
+    <div class="byline">BY GLOBAL FUEL REPORT DESK &nbsp;·&nbsp; APRIL 1, 2026 &nbsp;·&nbsp; 4 MIN READ</div>
+    <div class="researcher-badge">
+      <span class="researcher-label">RESEARCHED BY</span>
+      <span class="researcher-name">Pranav</span>
+    </div>
+    <div class="insta-badge">
+      <a href="https://instagram.com/some__anonymous__guy" target="_blank">@some__anonymous__guy</a>
+    </div>
+  </div>
+
+  <aside class="hero-sidebar">
+    <div class="fact-box">
+      <div class="fact-label">Export Volume Halted</div>
+      <div class="fact-number">~150K</div>
+      <div class="fact-desc">barrels per day of Russian petrol removed from global markets</div>
+    </div>
+    <div class="fact-box">
+      <div class="fact-label">Duration</div>
+      <div class="fact-number">4 Mo.</div>
+      <div class="fact-desc">April 1 to July 31, 2026 — applies to all exporters including producers</div>
+    </div>
+    <div class="fact-box">
+      <div class="fact-label">Global Price Pressure</div>
+      <div class="fact-number">+1–2%</div>
+      <div class="fact-desc">estimated uptick in global gasoline benchmark prices</div>
+    </div>
+  </aside>
+</section>
+
+<!-- BODY COLUMNS -->
+<div class="body-wrap">
+  <div class="pull-quote">India imports crude oil — not refined petrol — so the direct hit to Indian consumers is expected to remain limited.</div>
+
+  <div class="col">
+    <p>Russia has announced a complete ban on gasoline exports beginning April 1, 2026, which will remain in effect through July 31. The decision was announced by Deputy Prime Minister Alexander Novak, who instructed the Ministry of Energy to draft the formal legislation. The move is aimed at stabilising domestic fuel prices and securing sufficient supply for Russian consumers.</p>
+    <p>The trigger is a convergence of pressures: ongoing Ukrainian drone strikes on Russian oil refineries have disabled roughly 10% of Russia's refining capacity, while geopolitical turbulence from the Israel-Iran conflict has sent global oil prices sharply higher. Novak cited "significant price fluctuations" in global oil and petroleum markets as a key factor behind the decision.</p>
+  </div>
+
+  <div class="col">
+    <p>Russia is the world's third-largest oil producer and normally exports between 120,000 and 170,000 barrels of petrol every day. Last year alone, it shipped approximately 5 million metric tons of gasoline to international buyers. The suspension of those flows will particularly sting nations that have come to rely on Russian supply.</p>
+    <p>Countries in the Eurasian Economic Union — Armenia, Belarus, Kazakhstan, and Kyrgyzstan — are exempt under intergovernmental agreements. Strategic partners like Mongolia and Uzbekistan are also largely shielded by long-term bilateral fuel deals. For everyone else, the scramble for alternative supply begins now.</p>
+  </div>
+
+  <div class="col">
+    <p>This is not Russia's first export ban — similar restrictions were imposed in 2023 and again through multiple stretches of 2025, each time driven by a mix of domestic shortages and refinery disruptions. However, analysts note that the current ban coincides with one of the most volatile global energy environments in recent memory, adding greater weight to the decision.</p>
+    <p>Middle Eastern refiners, particularly in the Gulf, are expected to step in to fill the gap — routing additional cargoes to markets that previously relied on Russian supply. European refineries along the Mediterranean are also positioned to increase output. The net effect: higher prices and longer shipping routes for buyers.</p>
+  </div>
+</div>
+
+<!-- IMPACT CARDS -->
+<div class="impact-wrap">
+  <h2>🌍 Country-by-Country Impact</h2>
+  <div class="impact-grid">
+    <div class="impact-card">
+      <div class="flag">🇨🇳</div>
+      <div class="country">China</div>
+      <div class="status">One of the largest buyers of Russian petrol. Will need to source alternative refined products from Middle East or domestic refiners.</div>
+      <span class="badge high">High Impact</span>
+    </div>
+    <div class="impact-card">
+      <div class="flag">🇹🇷</div>
+      <div class="country">Turkey</div>
+      <div class="status">Heavily reliant on Russian petroleum products. Faces supply chain stress and potential price hikes at the pump.</div>
+      <span class="badge high">High Impact</span>
+    </div>
+    <div class="impact-card">
+      <div class="flag">🇧🇷</div>
+      <div class="country">Brazil</div>
+      <div class="status">A significant importer of Russian gasoline. Will likely pivot to US or Middle East suppliers at a premium cost.</div>
+      <span class="badge medium">Medium Impact</span>
+    </div>
+    <div class="impact-card india">
+      <div class="flag">🇮🇳</div>
+      <div class="country">India — Special Note</div>
+      <div class="status">India imports <strong>crude oil</strong>, not refined petrol, from Russia. Domestic refineries are at 100%+ capacity and the government confirms 2-month fuel reserves are secured.</div>
+      <span class="badge low">Low Impact</span>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="timeline-wrap">
+  <h2>📅 Timeline of Russia's Export Bans</h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Sep 2023</div>
+      <div class="tl-text">Russia's first full diesel + gasoline export ban triggers global price spike</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2024</div>
+      <div class="tl-text">Intermittent gasoline restrictions introduced to manage domestic shortages</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Mar–Aug 2025</div>
+      <div class="tl-text">Export ban imposed March–Aug; Ukraine drone strikes escalate refinery damage</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Sep–Dec 2025</div>
+      <div class="tl-text">Ban extended through year-end; domestic petrol shortage reaches ~20%</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Feb 2026</div>
+      <div class="tl-text">Extended ban through February to maintain domestic market stability</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot active"></div>
+      <div class="tl-date">Apr–Jul 2026 ●</div>
+      <div class="tl-text"><strong>Current ban:</strong> April 1 – July 31, driven by Iran-Israel conflict & ongoing refinery attacks</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>SOURCE: TASS · Bloomberg · The Moscow Times · ANI · News9Live &nbsp;|&nbsp; <span>GLOBAL FUEL REPORT</span> &nbsp;·&nbsp; APRIL 1, 2026</p>
+  <p style="margin-top:8px;">RESEARCHED BY <span>Pranav</span> &nbsp;·&nbsp; <a href="https://instagram.com/some__anonymous__guy" target="_blank" style="color:#c8320a;text-decoration:none;font-weight:700;">@some__anonymous__guy</a></p>
+  <p style="margin-top:8px;font-size:0.55rem;color:#555;">© 2026 Pranav · @some__anonymous__guy · All rights reserved. Unauthorized reproduction or redistribution is prohibited.</p>
+</footer>
+
+</body>
+</html>
